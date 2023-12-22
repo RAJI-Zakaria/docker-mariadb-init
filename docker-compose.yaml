@@ -3,6 +3,9 @@ services:
   mariadb:
     image: mariadb:latest
     container_name: my-mariadb
+    security_opt:
+      - no-new-privileges:true
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db_dev
@@ -13,10 +16,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Mount the init.sql script into the container
     ports:
       - "3306:3306"
-    command: 
-      - '--init-file'
-      - '/docker-entrypoint-initdb.d/init.sql' # Command to execute the init.sql file on startup
-      - '--datadir=/var/lib/mysql' # Command to start the database after initialization
+    
 # The following volume is meant to be used to seperate the backend volume "my volume" from the database volume so that we can keep a clearer structure.
 volumes:
   db_data: # Declare the volume for MariaDB data persistence
