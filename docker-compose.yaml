@@ -16,7 +16,9 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Mount the init.sql script into the container
     ports:
       - "3306:3306"
-    
+    command: 
+      - '--init-file'
+      - '/docker-entrypoint-initdb.d/init.sql' # Command to execute the init.sql file on startup
 # The following volume is meant to be used to seperate the backend volume "my volume" from the database volume so that we can keep a clearer structure.
 volumes:
   db_data: # Declare the volume for MariaDB data persistence
