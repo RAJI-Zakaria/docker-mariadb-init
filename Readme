@@ -1,0 +1,55 @@
+# Dockerized MariaDB with Initialization SQL
+
+This project sets up a Dockerized MariaDB service using `docker-compose.yml` and initializes it with a custom SQL script (`init.sql`) to create a database and tables + inserting data.
+
+## Prerequisites
+
+- Docker
+- Docker Compose
+
+## Getting Started
+
+1. Clone this repository:
+
+    ```bash
+    git clone https://github.com/your-username/your-repo.git
+    ```
+
+2. Navigate to the project directory:
+
+    ```bash
+    cd your-repo
+    ```
+
+3. Run the Docker Compose command:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+This will start the MariaDB service in the background and initialize the database with the provided SQL script.
+
+## Details
+
+### `docker-compose.yml`
+
+The `docker-compose.yml` file defines the configuration for the MariaDB service. It uses the latest MariaDB image, sets environment variables for the database, mounts a volume for data persistence, exposes port 3306, and executes an initialization SQL file (`init.sql`) on startup.
+
+### `init.sql`
+
+The `init.sql` file contains SQL commands to create a database called `db_dev`, create tables (`user` and `todo`), and insert sample data into the `user` table.
+
+## Volume Structure
+
+This setup uses a separate volume named `db_data` to store MariaDB data. This separation allows for a clearer structure, keeping the database-related data distinct from other volumes, such as the backend volume (`my_volume`).
+
+## Usage
+
+- To access the database from outside the Docker environment, use `localhost:3306`.
+- Update the SQL commands in `init.sql` as needed for your application's requirements.
+
+## Notes
+
+- Ensure Docker and Docker Compose are properly installed and running.
+- Modify environment variables and SQL commands according to your specific project needs.
+- Backup the `db_data` volume regularly to prevent data loss.
